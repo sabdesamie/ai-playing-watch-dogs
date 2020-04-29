@@ -14,7 +14,7 @@ from directkey import PressKey, ReleaseKey,A,W,D
 WIDTH = 80
 HEIGHT = 60
 LR = 1e-3
-EPOCHS = 10
+EPOCHS = 18
 
 
 
@@ -44,7 +44,6 @@ for i in list(range(4))[::-1]:
     time.sleep(1)
 
 model = alexnet(WIDTH,HEIGHT,LR)
-#model.load("model_alexnet-154000")
 model.load("wd_model_v3.h5")
 
 
@@ -56,18 +55,14 @@ while(True):
 
     if not paused:
 
-        #screen = np.array(ImageGrab.grab(bbox=(0,40,800,600)))
+        
         screen = grab_screen(region = (0,40,800,640))
         screen = cv2.cvtColor(screen,cv2.COLOR_BGR2GRAY)
         screen = cv2.resize(screen,(80,60))
 
-        # print(time.time()-last_time)
-        last_time = time.time()
-
         prediction = model.predict([screen.reshape(80,60,1)])[0]
         moves = list(np.around(prediction))
         print(prediction,moves)
-
 
         if moves == [1,0,0]:
             left()
