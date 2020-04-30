@@ -3,3 +3,4 @@ tensorflow
 opencv-python
 pypiwin32
 tflearn
+h5py
